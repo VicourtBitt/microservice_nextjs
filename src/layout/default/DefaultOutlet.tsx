@@ -39,6 +39,7 @@ export default function DefaultOutlet({
                         }),
                     }}
                 >
+                    <DefaultDrawer open={drawerOpen} handleDrawerToggle={handleDrawerToggle} />
                     {children}
                 </Box>
             </Box>

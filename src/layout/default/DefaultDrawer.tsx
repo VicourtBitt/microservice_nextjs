@@ -1,17 +1,17 @@
 "use client"
 
-import { Box, Drawer, Paper, Toolbar } from "@mui/material"
-import { useTheme } from "@mui/material/styles"
+import { Box, Drawer, Paper } from "@mui/material"
+import NavigationList from "@/components/navigation/NavigationList"
+import { useUserSession } from "@/context/UserSessionContext"
 
 export default function DefaultDrawer({ 
     open, 
-    handleDrawerToggle 
 }: {
     open: boolean
     handleDrawerToggle: () => void
 }) {
-    const theme = useTheme()
-    const drawerWidth = 240
+    const { session } = useUserSession()
+    const drawerWidth = session && session.user ? 240 : 0
 
     return (
         <Drawer
@@ -27,8 +27,7 @@ export default function DefaultDrawer({
                 },
             }}
         >
-            <Toolbar /> {/* This creates space for the AppBar */}
-            <Box sx={{ overflow: 'auto' }}>
+            <Box sx={{ overflow: 'auto', mt: 6 }}>
                 <Paper
                     elevation={0}
                     sx={{
@@ -38,8 +37,13 @@ export default function DefaultDrawer({
                         padding: 2
                     }}
                 >
-                    {/* Your drawer content here */}
-                    <Box component="span" sx={{ flexGrow: 1 }} />
+                    <Box component="span" sx={{ flexGrow: 1 }}>
+                        {
+                            session && session.user && (
+                                <NavigationList />
+                            )
+                        }
+                    </Box>
                 </Paper>
             </Box>
         </Drawer>
