@@ -7,15 +7,21 @@ import {
   Grid,
   Box,
   Typography,
-  Divider,
   Paper,
-  useTheme as useMuiTheme
+  Divider
 } from "@mui/material";
 import { useTheme } from "@/theme/ThemeProvider";
 import { GitHub, Google } from "@mui/icons-material";
+import useTitle from "@/hooks/useTitle";
+
+interface AuthProvider {
+  id: string;
+  name: string;
+}
 
 export default function SignInPage() {
-  const [providers, setProviders] = useState<any>({});
+  useTitle("Sign In", "MDAN");
+  const [providers, setProviders] = useState<Record<string, AuthProvider>>({});
   const { themeMode, font } = useTheme();
 
   // Fetch the providers from NextAuth on mount
@@ -81,10 +87,27 @@ export default function SignInPage() {
             Sign In
           </Typography>
 
-          <Divider sx={{ my: 3, width: "100%" }} />
+          <Divider 
+            sx={{ 
+              my: 3,
+              width: '100%',
+              '&::before, &::after': {
+                borderColor: 'divider',
+              }
+            }}
+            textAlign="center"
+          >
+            <Typography 
+              variant="body2" 
+              color="text.secondary"
+              sx={{ px: 2 }}
+            >
+              With
+            </Typography>
+          </Divider>
 
           {providers &&
-            Object.values(providers).map((provider: any) => (
+            Object.values(providers).map((provider: AuthProvider) => (
               <Box key={provider.name} mb={2} width="100%">
                 <Button
                   variant="contained"
@@ -110,6 +133,31 @@ export default function SignInPage() {
               </Box>
             ))
           }
+
+          <Box mt={2}>
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              sx={{ 
+                fontSize: "0.875rem",
+                fontFamily: font,
+              }}
+            >
+              {"Don't have an account?"}{" "}
+              <Button
+                component="a"
+                href="/register"
+                color="primary"
+                sx={{ 
+                  textTransform: "none",
+                  fontSize: "0.875rem",
+                  fontFamily: font,
+                }}
+              >
+                Sign Up
+              </Button>
+            </Typography>
+          </Box>
         </Box>
       </Paper>
     </Grid>

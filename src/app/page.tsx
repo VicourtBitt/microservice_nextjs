@@ -1,13 +1,13 @@
 "use client";
 
-import DrawerComponent from "@/components/theme/ThemeDrawer";
 import LogoutButton from "@/components/logout/LogoutButton";
-import Link from "next/link";
 import { Grid } from "@mui/material";
 import { useUserSession } from "@/context/UserSessionContext";
+import useTitle from "@/hooks/useTitle";
 
 export default function Home() {
-  const { session, setSession } = useUserSession();
+  useTitle("Home", "MDAN")
+  const { session } = useUserSession();
 
   return (
     <Grid container spacing={2} sx={{ padding: 2 }}> 
@@ -24,9 +24,6 @@ export default function Home() {
               You are not logged in.
             </p>
           )}
-        </Grid>
-        <Grid size={12}>
-          <Link href="/api/auth/signin">Go to the SignIn Page</Link>
         </Grid>
         <Grid size={12}>
           <LogoutButton />

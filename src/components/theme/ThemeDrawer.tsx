@@ -10,7 +10,7 @@ import {
   Divider,
   Box,
   Typography,
-  Grid
+  Grid,
 } from "@mui/material";
 import { useTheme } from "@/theme/ThemeProvider";
 import { colorThemes } from "@/theme/ThemeProvider";
@@ -115,7 +115,7 @@ const ThemeDrawer = () => {
                 color={theme.primary.main} 
                 name={name.charAt(0).toUpperCase() + name.slice(1)}
                 selected={colorTheme === name}
-                onClick={() => setColorTheme(name as any)}
+                onClick={() => setColorTheme(name as keyof typeof colorThemes)}
               />
             </Grid>
           ))}
