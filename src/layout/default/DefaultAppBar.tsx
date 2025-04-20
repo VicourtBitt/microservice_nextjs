@@ -3,17 +3,17 @@
 import { AppBar, Toolbar, IconButton, Box, Typography } from "@mui/material"
 import { useTheme as useMuiTheme } from "@mui/material/styles"
 import { MenuOutlined, Settings } from "@mui/icons-material"
-import { useTheme } from "@/theme/ThemeProvider" // Import your custom useTheme hook
+import { useTheme } from "@/theme/ThemeProvider" 
+import Link from "next/link"
 
 export default function DefaultAppBar({ 
-    drawerOpen, 
     handleDrawerToggle 
 }: {
     drawerOpen: boolean
     handleDrawerToggle: () => void
 }) {
     const muiTheme = useMuiTheme()
-    const { toggleDrawer: toggleThemeDrawer, themeMode, colorTheme } = useTheme()
+    const { toggleDrawer: toggleThemeDrawer } = useTheme()
     
     return (
         <AppBar 
@@ -26,8 +26,6 @@ export default function DefaultAppBar({
                     easing: muiTheme.transitions.easing.sharp,
                     duration: muiTheme.transitions.duration.leavingScreen,
                 }),
-                // Optional: Override background color if you want more control
-                // bgcolor: 'primary.main',
             }}
         >
             <Toolbar>
@@ -41,12 +39,23 @@ export default function DefaultAppBar({
                     <MenuOutlined />
                 </IconButton>
                 <Box component="span" sx={{ flexGrow: 1 }}>
-                    <Typography variant="h6" noWrap component="div">
-                        Welcome to MUI-Database-API-NextJS
+                    <Typography
+                        variant="h6"
+                        noWrap
+                        component={Link}
+                        href="/"
+                        color="inherit"
+                        sx={{
+                            textDecoration: "none",
+                            fontWeight: 700,
+                            fontSize: 24,
+                            lineHeight: "normal",
+                        }}
+                    >
+                        MUI-Database-API-NextJS
                     </Typography>
                 </Box>
                 
-                {/* Add Theme Settings Icon */}
                 <IconButton
                     color="inherit"
                     aria-label="theme settings"
